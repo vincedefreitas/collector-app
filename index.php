@@ -5,7 +5,6 @@ require_once 'src/functions.php';
 
 $db = connectToDB();
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-$videogames = getAllVideoGames($db);
 
 ?>
 
@@ -22,11 +21,10 @@ $videogames = getAllVideoGames($db);
 </head>
 <body>
 <div class="card-container">
-
     <?php
+        $videogames = getAllVideoGames($db);
         echo displayAllVideoGames($videogames);
     ?>
-
 </div>
 </body>
 </html>

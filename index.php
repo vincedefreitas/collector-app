@@ -1,16 +1,11 @@
 <?php
 require_once 'src/db.php';
+require_once 'src/functions.php';
+
 
 $db = connectToDB();
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-$query = $db->prepare('SELECT * FROM `videogames`;');
-$result = $query->execute();
-
-if ($result) {
-    $videogames = $query->fetchAll();
-//    echo '<pre>';
-//    var_dump($videogames);
-}
+$videogames = getAllVideoGames($db);
 
 ?>
 
@@ -26,17 +21,12 @@ if ($result) {
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div>
-    <?php
-        foreach ($videogames as $game) {
-            echo "<p>Game: {$game['name']}</p>";
-            echo "<p>Genre: {$game['genre']}</p>";
-            echo "<p>Platform: {$game['platform']}</p>";
-            echo "<p>Age Rating: {$game['agerating']}</p>";
-            echo '<br>';
-        }
-    ?>
-</div>
+<div class="card-container">
 
+    <?php
+        echo displayAllVideoGames($videogames);
+    ?>
+
+</div>
 </body>
 </html>

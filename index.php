@@ -23,8 +23,8 @@ $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 <div class="card-container">
     <?php
         try {
-            $videogames = getAllVideoGames($db);
-            echo displayAllVideoGames($videogames);
+            $videogames = getAllGames($db);
+            echo displayAllGames($videogames);
         } catch (Exception $e) {
             echo 'Message: ' .$e->getMessage();
         }

@@ -1,6 +1,6 @@
 <?php
 
-function getAllVideoGames(object $db): array {
+function getAllGames(object $db): array {
     $query = $db->prepare('SELECT * FROM `videogames`;');
     $result = $query->execute();
     if ($result) {
@@ -11,7 +11,7 @@ function getAllVideoGames(object $db): array {
     return $videogames;
 }
 
-function displayAllVideoGames(array $games): string {
+function displayAllGames(array $games): string {
 $result = "";
 foreach ($games as $game) {
     $result .= "<div class='card'>

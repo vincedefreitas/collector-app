@@ -1,7 +1,8 @@
 <?php
 
 function getAllGames(object $db): array {
-    $query = $db->prepare('SELECT `name`, `genre`, `platform`, `agerating` FROM `videogames`;');
+    $query = $db->prepare('SELECT `name`, `genre`, `platform`, `agerating`.`age` FROM videogames
+JOIN agerating ON videogames.ageid = `agerating`.`id`;');
     $result = $query->execute();
     if ($result) {
         $videogames = $query->fetchAll();
@@ -18,7 +19,7 @@ foreach ($games as $game) {
         <h1>Game: {$game['name']}</h1>
         <p><strong>Genre:</strong> {$game['genre']}</p>
         <p><strong>Platform:</strong> {$game['platform']}</p>
-        <p><strong>Age Rating:</strong> {$game['agerating']}</p>
+        <p><strong>Age Rating:</strong> {$game['age']}</p>
     </div>";
 }
 return $result;

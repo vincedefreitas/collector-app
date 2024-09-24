@@ -1,7 +1,7 @@
 <?php
 
 function getAllGames(object $db): array {
-    $query = $db->prepare('SELECT * FROM `videogames`;');
+    $query = $db->prepare('SELECT `name`, `genre`, `platform`, `agerating` FROM `videogames`;');
     $result = $query->execute();
     if ($result) {
         $videogames = $query->fetchAll();

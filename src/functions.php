@@ -1,7 +1,7 @@
 <?php
 
 function getAllGames(object $db): array {
-    $query = $db->prepare('SELECT `name`, `genre`, `platform`, `agerating`.`age` FROM videogames
+    $query = $db->prepare('SELECT `name`, `genre`, `platform`, `image`, `agerating`.`age` FROM videogames
 JOIN agerating ON videogames.ageid = `agerating`.`id`;');
     $result = $query->execute();
     if ($result) {
@@ -16,6 +16,7 @@ function displayAllGames(array $games): string {
 $result = "";
 foreach ($games as $game) {
     $result .= "<div class='card'>
+        <img class='card-img' src='{$game['image']}' alt='Image of {$game['name']} cover'>
         <h1>Game: {$game['name']}</h1>
         <p><strong>Genre:</strong> {$game['genre']}</p>
         <p><strong>Platform:</strong> {$game['platform']}</p>

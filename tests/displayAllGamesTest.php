@@ -11,11 +11,13 @@ class displayAllGamesTest extends TestCase {
             'name' => 'Elden Ring',
             'genre' => 'Action/Adventure',
             'platform' => 'Xbox Series S',
-            'agerating' => '16'
+            'age' => '16',
+            'image' => 'image/elden.jpg'
         ]];
 
         $expected = "<div class='card'>
         <h1>Game: Elden Ring</h1>
+        <img class='card-img' src='image/elden.jpg' alt='Image of Elden Ring cover'>
         <p><strong>Genre:</strong> Action/Adventure</p>
         <p><strong>Platform:</strong> Xbox Series S</p>
         <p><strong>Age Rating:</strong> 16</p>

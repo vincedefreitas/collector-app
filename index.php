@@ -2,9 +2,7 @@
 require_once 'src/db.php';
 require_once 'src/functions.php';
 
-
 $db = connectToDB();
-$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
 ?>
 

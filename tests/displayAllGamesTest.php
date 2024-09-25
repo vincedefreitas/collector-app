@@ -17,7 +17,7 @@ class displayAllGamesTest extends TestCase {
 
         $expected = "<div class='card'>
         <img class='card-img' src='img/elden.jpg' alt='Image of Elden Ring cover'>
-        <h1>Game: Elden Ring</h1>
+        <h2>Game: Elden Ring</h2>
         <p><strong>Genre:</strong> Action/Adventure</p>
         <p><strong>Platform:</strong> Xbox Series S</p>
         <p><strong>Age Rating:</strong> 16</p>

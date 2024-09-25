@@ -23,7 +23,7 @@ function displayAllGames(array $games): string
     foreach ($games as $game) {
         $result .= "<div class='card'>
         <img class='card-img' src='{$game['image']}' alt='Image of {$game['name']} cover'>
-        <h1>Game: {$game['name']}</h1>
+        <h2>Game: {$game['name']}</h2>
         <p><strong>Genre:</strong> {$game['genre']}</p>
         <p><strong>Platform:</strong> {$game['platform']}</p>
         <p><strong>Age Rating:</strong> {$game['age']}</p>

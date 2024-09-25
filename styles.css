@@ -20,6 +20,24 @@ form {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    /*border: 1px solid yellow;*/
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+}
+
+label {
+    width: 100px;
+}
+
+form input, form select {
+    flex: 1;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+
 }
 
 .card-container {

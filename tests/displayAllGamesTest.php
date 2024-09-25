@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class displayAllGamesTest extends TestCase {
 
-    public function testDisplayGamesOutput(): void
+    public function testDisplayGamesOutput_Success(): void
     {
         $inputArray = [[
             'name' => 'Elden Ring',

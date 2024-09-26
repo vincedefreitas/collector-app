@@ -3,9 +3,10 @@ require_once 'src/db.php';
 require_once 'src/functions.php';
 
 $db = connectToDB();
-
 addGameToDB($db);
-
+$genre_table = getTable("genre", $db);
+$platform_table = getTable("platform", $db);
+$age_table = getTable("agerating", $db);
 ?>
 
 <!doctype html>
@@ -32,34 +33,22 @@ addGameToDB($db);
         <div class="form-group">
             <label for="game-genre">Genre:</label>
             <select name="game-genre" id="game-genre" required>
-                <option value="1">Action/Adventure</option>
-                <option value="2">Platformer</option>
-                <option value="3">Fighting</option>
-                <option value="4">Puzzle</option>
-                <option value="5">JRPG</option>
+                <option value="">Select Genre</option>
+                <?php echo setDropdownOptions($genre_table, "genre"); ?>
             </select>
         </div>
         <div class="form-group">
-            <label for="game-platform">Genre:</label>
+            <label for="game-platform">Platform:</label>
             <select name="game-platform" id="game-platform" required>
-                <option value="1">PS5</option>
-                <option value="2">PS4</option>
-                <option value="3">Xbox Series S</option>
-                <option value="4">Nintendo Switch</option>
-                <option value="5">Nintendo 3DS</option>
-                <option value="6">PS3</option>
-                <option value="7">PC</option>
-                <option value="8">Xbox 360</option>
+                <option value="">Select Platform</option>
+                <?php echo setDropdownOptions($platform_table, "platform"); ?>
             </select>
         </div>
         <div class="form-group">
-            <label for="game-age">Age:</label>
+            <label for="game-age">Age Rating:</label>
             <select name="game-age" id="game-age" required>
-                <option value="1">3</option>
-                <option value="2">7</option>
-                <option value="3">12</option>
-                <option value="4">16</option>
-                <option value="5">18</option>
+                <option value="">Select Age Rating</option>
+                <?php echo setDropdownOptions($age_table, "agerating"); ?>
             </select>
         </div>
         <input type="submit" value="Add to Collection">

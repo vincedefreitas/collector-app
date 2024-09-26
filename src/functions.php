@@ -3,7 +3,7 @@
 function getAllGames(object $db): array
 {
     $query = $db->prepare(
-        'SELECT `name`, `genre`.`genre`, `platform`.`platform`, `image`, `agerating`.`age` FROM videogames
+        'SELECT `name`, `genre`.`genre`, `platform`.`platform`, `image`, `agerating`.`agerating` FROM videogames
         JOIN `genre` ON `videogames`.`genreid` = `genre`.`id`
         JOIN `platform` ON `videogames`.`platformid` = `platform`.`id`
         JOIN `agerating` ON `videogames`.`ageid` = `agerating`.`id`;'
@@ -34,7 +34,7 @@ function displayAllGames(array $games): string
         <h2>Game: {$game['name']}</h2>
         <p><strong>Genre:</strong> {$game['genre']}</p>
         <p><strong>Platform:</strong> {$game['platform']}</p>
-        <p><strong>Age Rating:</strong> {$game['age']}</p>
+        <p><strong>Age Rating:</strong> {$game['agerating']}</p>
     </div>";
     }
     return $result;
@@ -48,10 +48,10 @@ function getTable(string $tablename, PDO $db) {
     }
 }
 
-function setDropDownOptions(array $table, $column): string {
+function setDropdownOptions(array $table, $column): string {
     $options= '';
-    foreach($table as $item) {
-        $options .= "<option value=\"{$item['id']}\">{$item[$column]}</option>";
+    foreach($table as $row) {
+        $options .= "<option value=\"{$row['id']}\">{$row[$column]}</option>";
     }
     return $options;
 }

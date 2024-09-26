@@ -81,7 +81,7 @@ function validateAgeRating(string $age_rating): bool {
     return in_array($age_rating, $valid_age_ratings);
 }
 
-function addGameToDB($db): void {
+function addGameToDB(PDO $db): void {
     if(isset($_POST['game-title']) && isset($_POST['game-genre']) && isset($_POST['game-platform']) && isset($_POST['game-age'])) {
         $gametitle = validateTitle($_POST['game-title']);
         if ($gametitle === false) {

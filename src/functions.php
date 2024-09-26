@@ -58,22 +58,61 @@ function setDropdownOptions(array $table, $column): string {
     return $options;
 }
 
-function addGameToDB($db): void {
-    if(isset($_POST['game-title']) && isset($_POST['game-genre']) && isset($_POST['game-platform']) && isset($_POST['game-age'])) {
-        $gametitle = $_POST['game-title'];
-        $gamegenre = $_POST['game-genre'];
-        $gameplatform = $_POST['game-platform'];
-        $gameage = $_POST['game-age'];
+function validateTitle(string $title) {
+    $title = trim($title);
+    if (empty($title) || strlen($title) > 100 || !preg_match("/^[a-zA-Z0-9\s:!]+$/", $title)) {
+        return false;
+    }
+    return htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+}
 
-        $query = $db->prepare('INSERT INTO `videogames` (`name`, `genreid`, `platformid`, `ageid`)
-    VALUES (:gametitle, :gamegenre, :gameplatform, :gameage);'
+function validateGenre(string $genre): bool {
+    $valid_genres = ['1', '2', '3', '4', '5'];
+    return in_array($genre, $valid_genres);
+}
+
+function validatePlatform(string $platform): bool {
+    $valid_platforms = ['1', '2', '3', '4', '5', '6', '7', '8'];
+    return in_array($platform, $valid_platforms);
+}
+
+function validateAgeRating(string $age_rating): bool {
+    $valid_age_ratings = ['1', '2', '3', '4', '5'];
+    return in_array($age_rating, $valid_age_ratings);
+}
+
+function addGameToDB(PDO $db): void {
+    if(isset($_POST['game-title']) && isset($_POST['game-genre']) && isset($_POST['game-platform']) && isset($_POST['game-age'])) {
+        $gametitle = validateTitle($_POST['game-title']);
+        if ($gametitle === false) {
+            die("Invalid game title");
+        }
+
+        $gamegenre = $_POST['game-genre'];
+        if (!validateGenre($gamegenre)) {
+            die ("Invalid genre");
+        }
+
+        $gameplatform = $_POST['game-platform'];
+        if (!validatePlatform($gameplatform)) {
+            die ("Invalid platform");
+        }
+
+        $gameage = $_POST['game-age'];
+        if (!validateAgeRating($gameage)) {
+            die ("Invalid Age Rating");
+        }
+
+        $query = $db->prepare('INSERT INTO `videogames` (`name`, `genreid`, `platformid`, `ageid`, `image`)
+    VALUES (:gametitle, :gamegenre, :gameplatform, :gameage, :image);'
         );
 
         $query->execute([
             'gametitle' => $gametitle,
             'gamegenre' => $gamegenre,
             'gameplatform' => $gameplatform,
-            'gameage' => $gameage
+            'gameage' => $gameage,
+            'image' => 'img/placeholder.jpg'
         ]);
     }
 }

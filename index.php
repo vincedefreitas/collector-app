@@ -43,21 +43,21 @@ try {
         <div class="form-group">
             <label for="game-genre">Genre:</label>
             <select name="game-genre" id="game-genre" required>
-                <option value="">Select Genre</option>
+                <option value="" disabled selected>Select Genre</option>
                 <?php echo setDropdownOptions($genre_table, "genre"); ?>
             </select>
         </div>
         <div class="form-group">
             <label for="game-platform">Platform:</label>
             <select name="game-platform" id="game-platform" required>
-                <option value="">Select Platform</option>
+                <option value="" disabled selected>Select Platform</option>
                 <?php echo setDropdownOptions($platform_table, "platform"); ?>
             </select>
         </div>
         <div class="form-group">
             <label for="game-age">Age Rating:</label>
             <select name="game-age" id="game-age" required>
-                <option value="">Select Age Rating</option>
+                <option value="" disabled selected>Select Age Rating</option>
                 <?php echo setDropdownOptions($age_table, "agerating"); ?>
             </select>
         </div>

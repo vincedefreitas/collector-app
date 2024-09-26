@@ -90,17 +90,17 @@ function addGameToDB(PDO $db): void {
 
         $gamegenre = $_POST['game-genre'];
         if (!validateGenre($gamegenre)) {
-            die ("Invalid genre");
+            die("Invalid genre");
         }
 
         $gameplatform = $_POST['game-platform'];
         if (!validatePlatform($gameplatform)) {
-            die ("Invalid platform");
+            die("Invalid platform");
         }
 
         $gameage = $_POST['game-age'];
         if (!validateAgeRating($gameage)) {
-            die ("Invalid Age Rating");
+            die("Invalid Age Rating");
         }
 
         $query = $db->prepare('INSERT INTO `videogames` (`name`, `genreid`, `platformid`, `ageid`, `image`)

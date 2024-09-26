@@ -4,9 +4,16 @@ require_once 'src/functions.php';
 
 $db = connectToDB();
 addGameToDB($db);
-$genre_table = getTable("genre", $db);
-$platform_table = getTable("platform", $db);
-$age_table = getTable("agerating", $db);
+
+try {
+    $genre_table = getTable("genre", $db);
+    $platform_table = getTable("platform", $db);
+    $age_table = getTable("agerating", $db);
+} catch (ErrorException $e) {
+    echo 'Message: ' .$e->getMessage();
+}
+
+
 ?>
 
 <!doctype html>
@@ -59,7 +66,7 @@ $age_table = getTable("agerating", $db);
         try {
             $videogames = getAllGames($db);
             echo displayAllGames($videogames);
-        } catch (Exception $e) {
+        } catch (ErrorException $e) {
             echo 'Message: ' .$e->getMessage();
         }
     ?>

@@ -1,6 +1,6 @@
 <?php
 
-function getAllGames(object $db): array
+function getAllGames(PDO $db): array
 {
     $query = $db->prepare(
         'SELECT `name`, `genre`.`genre`, `platform`.`platform`, `image`, `agerating`.`agerating` FROM videogames
@@ -9,10 +9,10 @@ function getAllGames(object $db): array
         JOIN `agerating` ON `videogames`.`ageid` = `agerating`.`id`;'
     );
     $result = $query->execute();
-    if ($result) {
-        $videogames = $query->fetchAll();
-    } else {
+    if (!$result) {
         throw new ErrorException("Couldn't retrieve information from database");
+    } else {
+        $videogames = $query->fetchAll();
     }
     return $videogames;
 }
@@ -40,10 +40,12 @@ function displayAllGames(array $games): string
     return $result;
 }
 
-function getTable(string $tablename, PDO $db) {
+function getTable(string $tablename, PDO $db): array {
     $query = $db->prepare("SELECT `id`, `{$tablename}` FROM `{$tablename}`");
     $result = $query->execute();
-    if ($result) {
+    if (!$result) {
+        throw new ErrorException("Couldn't retrieve information from database");
+    } else {
         return $query->fetchAll();
     }
 }

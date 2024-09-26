@@ -11,7 +11,7 @@ class displayAllGamesTest extends TestCase {
             'name' => 'Elden Ring',
             'genre' => 'Action/Adventure',
             'platform' => 'Xbox Series S',
-            'age' => '16',
+            'agerating' => '16',
             'image' => 'img/elden.jpg'
         ]];
 

@@ -26,6 +26,9 @@ try {
     <title>Vince's Video Game Collection</title>
     <link rel="stylesheet" href="modern-normalize.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="title">
@@ -35,7 +38,7 @@ try {
     <form action="index.php" method="post">
         <div class="form-group">
             <label for="game-title">Game Title:</label>
-            <input type="text" id="game-title" name="game-title" placeholder="e.g. Elden Ring" required>
+            <input type="text" id="game-title" name="game-title" maxlength="100" pattern="^[a-zA-Z0-9\s:!]+$" placeholder="e.g. Elden Ring" required>
         </div>
         <div class="form-group">
             <label for="game-genre">Genre:</label>
@@ -58,7 +61,7 @@ try {
                 <?php echo setDropdownOptions($age_table, "agerating"); ?>
             </select>
         </div>
-        <input type="submit" value="Add to Collection">
+        <input class="btn" type="submit" value="Add to Collection">
     </form>
 </div>
 <div class="card-container">

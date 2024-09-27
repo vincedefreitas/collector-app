@@ -3,14 +3,45 @@ require_once 'src/db.php';
 require_once 'src/functions.php';
 
 $db = connectToDB();
-addGameToDB($db);
+
 
 try {
-    $genre_table = getTable("genre", $db);
-    $platform_table = getTable("platform", $db);
-    $age_table = getTable("agerating", $db);
+    $genre_table = getGenreTable($db);
+    $platform_table = getPlatformTable( $db);
+    $age_table = getAgeRatingTable($db);
 } catch (ErrorException $e) {
     echo 'Message: ' .$e->getMessage();
+}
+
+if(isset($_POST['game-title']) && isset($_POST['game-genre']) && isset($_POST['game-platform']) && isset($_POST['game-age'])) {
+    $gametitle = validateTitle($_POST['game-title']);
+    if ($gametitle === false) {
+        $titlemessage = "Invalid Game Title";
+    }
+
+    $gamegenre = $_POST['game-genre'];
+    if (!validateGenre($gamegenre, $db)) {
+        $genremessage = "Invalid Genre";
+    }
+
+    $gameplatform = $_POST['game-platform'];
+    if (!validatePlatform($gameplatform, $db)) {
+        $platform_message = "Invalid Platform";
+    }
+
+    $gameage = $_POST['game-age'];
+    if (!validateAgeRating($gameage, $db)) {
+        $agemessage = "Invalid Age Rating";
+    }
+    if ($gametitle && validateGenre($gamegenre, $db) && validatePlatform($gameplatform, $db) && validateAgeRating($gameage, $db) ) {
+        $data = [
+                "gametitle" => $gametitle,
+                "gamegenre" => $gamegenre,
+                "gameplatform" => $gameplatform,
+                "gameage" => $gameage
+        ];
+        addGameToDB($db, $data);
+    }
 }
 
 
@@ -38,27 +69,40 @@ try {
     <form action="index.php" method="post">
         <div class="form-group">
             <label for="game-title">Game Title:</label>
-            <input type="text" id="game-title" name="game-title" maxlength="100" pattern="^[a-zA-Z0-9\s:!]+$" placeholder="e.g. Elden Ring" required>
+            <?php
+            if (isset($titlemessage)) {
+                echo "<input type='text' class='red' id='game-title' name='game-title' maxlength='100' value={$titlemessage} required>";
+            } else echo '<input type="text" id="game-title" name="game-title" maxlength="100" placeholder="e.g. Elden Ring" required>';
+            ?>
         </div>
         <div class="form-group">
             <label for="game-genre">Genre:</label>
-            <select name="game-genre" id="game-genre" required>
-                <option value="" disabled selected>Select Genre</option>
+                <?php
+                if (isset($genremessage)) {
+                    echo "<select name='game-genre' class='red' id='game-genre' required><option value='' disabled selected>$genremessage</option>";
+                } else echo '<select name="game-genre" id="game-genre" required> <option value="" disabled selected>Select Genre</option>';
+                ?>
                 <?php echo setDropdownOptions($genre_table, "genre"); ?>
             </select>
         </div>
         <div class="form-group">
             <label for="game-platform">Platform:</label>
-            <select name="game-platform" id="game-platform" required>
-                <option value="" disabled selected>Select Platform</option>
-                <?php echo setDropdownOptions($platform_table, "platform"); ?>
+            <?php
+                if (isset($platform_message)) {
+                    echo "<select name='game-platform' class='red' id='game-platform' required><option value='' disabled selected>$platform_message</option>";
+                } else echo '<select name="game-platform" id="game-platform" required> <option value="" disabled selected>Select Platform</option>';
+                ?>
+            <?php echo setDropdownOptions($platform_table, "platform"); ?>
             </select>
         </div>
         <div class="form-group">
             <label for="game-age">Age Rating:</label>
-            <select name="game-age" id="game-age" required>
-                <option value="" disabled selected>Select Age Rating</option>
-                <?php echo setDropdownOptions($age_table, "agerating"); ?>
+            <?php
+                if (isset($agemessage)) {
+                    echo "<select name='game-age' class='red' id='game-age' required><option value='' disabled selected>$agemessage</option>";
+                } else echo '<select name="game-age" id="game-age" required> <option value="" disabled selected>Select Age Rating</option>';
+                ?>
+            <?php echo setDropdownOptions($age_table, "agerating"); ?>
             </select>
         </div>
         <input class="btn" type="submit" value="Add to Collection">
